@@ -1,28 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <bodyHeader></bodyHeader>
+    <bodyBackground></bodyBackground>
+    <bodyContainer></bodyContainer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  import bodyContainer from './components/bodyContainer.vue'
+  import bodyHeader from './components/bodyHeader.vue'
+  import bodyBackground from './components/bodyBackground.vue'
+  export default {
+    name:'App',
+    components:{
+      bodyHeader,
+      bodyContainer,
+      bodyBackground
+    },
+    mounted(){
+      document.body.style.background='#0c1964'
+    }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import url('http://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
 </style>
