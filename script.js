@@ -1,6 +1,7 @@
 const logregBox = document.querySelector('.logreg-box');
 const loginLink = document.querySelector('.login-link');
 const regsiterLink = document.querySelector('.register-link')
+const regsiterLinks = document.querySelector('.register-link')
 
 regsiterLink.addEventListener('click', () => {
     logregBox.classList.add('active');
