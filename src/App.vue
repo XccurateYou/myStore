@@ -3,6 +3,7 @@
     <bodyHeader></bodyHeader>
     <bodyBackground></bodyBackground>
     <bodyContainer></bodyContainer>
+    <router-view/>
   </div>
 </template>
 

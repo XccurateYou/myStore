@@ -1,19 +1,13 @@
 <template>
-  <div class="container">
-    <container-content/>
-    <containerLogregbox/>
-  </div>
+    <div class="container">
+        <h1>hello</h1>
+    </div>
 </template>
+
 <script>
-import containerContent from './containerContent.vue'
-import containerLogregbox from './containerLogregbox.vue'
-export default {
-    name:'bodyContainer',
-    components:{
-        containerContent,
-        containerLogregbox
+    export default {
+        name:'firstTry'
     }
-}
 </script>
 
 <style>

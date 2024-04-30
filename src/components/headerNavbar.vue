@@ -4,7 +4,7 @@
     <a href="#">Export</a>
     <a href="#">QueryCustomer</a>
     <a href="#">QueryNation</a>
-    <a href="#">SqlAnalyze</a>
+    <router-link :to="{path:'/test'}"><a href="#">SqlAnalyze</a></router-link>
   </nav>
 </template>
 

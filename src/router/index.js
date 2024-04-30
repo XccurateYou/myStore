@@ -1,11 +1,15 @@
 import VueRouter from "vue-router";
-import containerLogregbox from "@/components/containerLogregbox.vue";
-
+import bodyContainer from "@/components/bodyContainer.vue";
+import firstTry from "@/components/firstTry.vue";
 export default new VueRouter({
     routes: [
         {
             path: '/login',
-            component: containerLogregbox
+            component: bodyContainer
+        },
+        {
+            path: '/test',
+            component: firstTry
         }
     ],
     mode: 'history'

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 Vue.use(Vuex)
+import router from '../router/index'
 //响应组件中动作
 const actions = {
     change(context) {
@@ -18,7 +19,14 @@ const actions = {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => console.log(response.msg))
+        }).then(response => {
+            console.log(JSON.stringify(response.data.msg))
+            router.push(
+                {
+                    path: '/test'
+                }
+            )
+        })
     }
 }
 
@@ -40,5 +48,5 @@ const state = {
 export default new Vuex.Store({
     actions,
     mutations,
-    state,
+    state
 })
