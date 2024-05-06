@@ -3,21 +3,35 @@
         <button>
             <i class='bx bxs-user-circle'></i>
         </button>
+        <router-link :to="{path:'/login'}"><div>{{changeLoginState()}}</div></router-link>
         <button>
-            <router-link :to="{path:'/login'}"><i class='bx bx-log-in'></i></router-link>
+            <i class='bx bx-log-in' @click="initialSetting()"></i>
+           
         </button>
   </div>
 </template>
 
 <script>
 export default {
-    name:'headerSearchbar'
+    name:'headerSearchbar',
+    methods:{
+        changeLoginState(){
+            return this.$store.state.logintip
+        },
+        initialSetting(){
+            this.$store.dispatch('initialSetting')
+        }
+    }
 }
 </script>
 
 <style scoped>
+* {
+    text-decoration: none;
+}
+
 .headerRight {
-    width: 340px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,5 +53,12 @@ export default {
     outline: none;
 }
 
+.headerRight div {
+    color: #e4e4e4;
+    transition:  .5s;
+}
 
+.headerRight div:hover {
+    font-size: 20px;
+}
 </style>

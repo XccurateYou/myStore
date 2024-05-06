@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .container {
     /* 相对于body元素的absolute属性 */
     position: absolute;

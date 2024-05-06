@@ -2,20 +2,17 @@
   <div>
     <bodyHeader></bodyHeader>
     <bodyBackground></bodyBackground>
-    <bodyContainer></bodyContainer>
     <router-view/>
   </div>
 </template>
 
 <script>
-  import bodyContainer from './components/bodyContainer.vue'
   import bodyHeader from './components/bodyHeader.vue'
   import bodyBackground from './components/bodyBackground.vue'
   export default {
     name:'App',
     components:{
       bodyHeader,
-      bodyContainer,
       bodyBackground
     },
     mounted(){

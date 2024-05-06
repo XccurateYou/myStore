@@ -8,6 +8,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 new Vue({
   render: h => h(App),
   store,

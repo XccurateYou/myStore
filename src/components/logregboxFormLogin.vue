@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form-box {
     position: absolute;
     display: flex;
@@ -168,5 +168,15 @@ export default {
     color: #e4e4e4;
     font-weight: 500;
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.login-register p a {
+    color: #e4e4e4;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
 }
 </style>
