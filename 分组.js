@@ -7,7 +7,7 @@ Array.prototype.grouby = function (fn) {
         const key = fn(item);
         ans.hasOwnProperty(key) ? ans[key].push(item) : (ans[key] = [], ans[key].push(item))
     }
-    return ans
+    return ans1
 }
 
 //解法二
