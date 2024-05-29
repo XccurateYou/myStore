@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传按钮美化</title>
+    <style type="text/css">
+        .upload {
+            width: 100px;
+            height: 40px;
+            position: relative;
+            border: 1px solid #ccc;
+            background: #eee;
+            color: #fff;
+            text-shadow: none;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, .2) cursor:pointer;
+        }
+
+        .upload {
+            width: 84px;
+            height: 28px;
+            position: relative;
+            border: 1px solid #00b7ee;
+            background: #00b7ee
+        }
+
+        .txt {
+            float: left;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 84px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            color: white;
+
+        }
+
+        .file {
+            width: 84px;
+            height: 28px;
+            opacity: 0.0;
+            filter: alpha(opacity=0);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upload">
+        <div class="txt">上传图片</div>
+        <input type="file" class="file" value="上传文件">
+    </div>
+</body>
+
+</html>

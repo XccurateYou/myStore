@@ -47,7 +47,7 @@
                 return this.$store.state.shared_buffers
             },
             getTimeOut(){
-                return this.$store.state.statement_timeout
+                return this.$store.state.logging_collector
             },
             getConnections(){
                 return this.$store.state.max_connections

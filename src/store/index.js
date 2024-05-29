@@ -17,7 +17,7 @@ const actions = {
     initialSetting() {
         state.ini_max_connections = Number(state.max_connections)
         state.ini_shared_buffers = Number(state.shared_buffers)
-        state.ini_statement_timeout = Number(state.statement_timeout)
+        state.ini_logging_collector = state.logging_collector
     },
 
     getinitialsetting() {
@@ -33,9 +33,12 @@ const actions = {
             }
         }).then(response => {
             if (response.data.data.config) {
-                state.max_connections = response.data.data.config[0].setting,
-                    state.shared_buffers = response.data.data.config[1].setting,
-                    state.statement_timeout = response.data.data.config[2].setting
+                state.max_connections = response.data.data.config[1].setting,
+                    state.ini_max_connections = state.max_connections,
+                    state.shared_buffers = response.data.data.config[2].setting,
+                    state.ini_shared_buffers = state.shared_buffers,
+                    state.logging_collector = response.data.data.config[0].setting,
+                    state.ini_logging_collector = state.logging_collector
             }
             router.push(
                 {
@@ -86,10 +89,16 @@ const state = {
     logintip: '请先登录',
     ini_max_connections: 0,
     ini_shared_buffers: 0,
-    ini_statement_timeout: 0,
+    ini_logging_collector: 'on',
     max_connections: '0',
     shared_buffers: '0',
-    statement_timeout: '0'
+    logging_collector: 'on',
+    customer_list: [],
+    nation_list: [],
+    customer_select: '',
+    nation_select: '',
+    page_number: 1,
+    size: 10,
 }
 
 //创建store

@@ -1,7 +1,7 @@
 
 <template>
     <div class='container'>
-        <div class="title"><h2>Import</h2></div>
+        <div class="title"><h2>Download</h2></div>
         <div class="tablename"><i class='bx bx-table' ></i> <div>region</div> <div><i class='bx bx-download' @click="importTable('region')"></i></div></div>
         <div class="tablename"><i class='bx bx-table' ></i> <div>supplier</div> <div><i class='bx bx-download' @click="importTable('supplier')"></i></div></div>
         <div class="tablename"><i class='bx bx-table' ></i> <div>nation</div> <div><i class='bx bx-download' @click="importTable('nation')"></i></div></div>
@@ -12,7 +12,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name:'importFiles',
+    name:'downloadFiles',
     methods:{
         importTable(tableName){
             axios({

@@ -13,7 +13,7 @@
 
             <div class="set">
                 <label for="timeout">TimeOut set to:</label>
-                <input type="number"  v-model="$store.state.ini_statement_timeout" required>                
+                <input   v-model="$store.state.ini_logging_collector" required>                
             </div>
 
             <div class="set icon">
@@ -34,19 +34,20 @@ export default {
             axios({
                 method:'POST',
                 url:'http://10.129.152.215:8080/systemManagement/updateConfig',
-                data:{
+                params:{
                     shared_buffers:this.$store.state.ini_shared_buffers,
                     max_connections:this.$store.state.ini_max_connections,
-                    statement_timeout:this.$store.state.ini_statement_timeout,
+                    logging_collector:this.$store.state.ini_logging_collector,
                 },
                 headers: {
                 'Content-Type': 'application/json',
                 'token': 'zxc'
                 }
             }).then(response => {
-                this.$store.max_connections=response.data.data.config[0].setting;
-                this.$store.shared_buffers=response.data.data.config[1].setting;
-                this.$store.statement_timeout=response.data.data.config[2].setting
+                alert(response.data.msg)
+                this.$store.state.max_connections=this.$store.state.ini_max_connections;
+                this.$store.state.shared_buffers=this.$store.state.ini_shared_buffers;
+                this.$store.state.logging_collector=this.$store.state.ini_logging_collector
                 }
                 )
         },

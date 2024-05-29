@@ -6,7 +6,6 @@
         <router-link :to="{path:'/login'}"><div>{{changeLoginState()}}</div></router-link>
         <button>
             <i class='bx bx-log-in' @click="initialSetting()"></i>
-           
         </button>
   </div>
 </template>

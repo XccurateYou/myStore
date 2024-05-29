@@ -4,21 +4,48 @@
     <div class="dropdown">
       <a href="#" class="mulchoose dropbtn" @click.prevent="">FileOperation<i class='bx bx-caret-down'></i></a>
       <div class="dropdown-content">
-          <router-link :to="{path:'/importFiles'}">Import</router-link>
-          <a href="">Export</a>
+          <router-link :to="{path:'/downloadFiles'}">Download</router-link>
+          <router-link :to="{path:'/uploadFile'}">Upload</router-link>
       </div>
     </div>
-    <a href="#" class="single">QueryService</a>
+    <router-link :to="{path:'/queryService'}"><a href="#" class="single" @click="getCustomerAndNation">QueryService</a></router-link>
     <router-link :to="{path:'/test'}"><a href="#" class="single">SqlAnalyze</a></router-link>
   </nav>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name:'headerNavbar',
     methods:{
       getInitialSetting(){
         this.$store.dispatch('getinitialsetting')
+      },
+      getCustomerAndNation(){
+
+        const request1 = axios({
+          method:'POST',
+          url:'http://10.129.152.215:8080/initQuery/queryNationName',
+          headers: {
+                'Content-Type': 'application/json',
+                'token': 'zxc'
+                },
+        })
+
+        const request2 = axios({
+          method:'POST',
+          url:'http://10.129.152.215:8080/initQuery/queryNationName',
+          headers: {
+                'Content-Type': 'application/json',
+                'token': 'zxc'
+                },
+        })
+
+        axios.all([request1,request2])
+        .then(responses =>{
+          this.$store.state.customer_list = responses[0].data.data;
+          this.$store.state.nation_list = responses[1].data.data
+        })
       }
     }
 }
