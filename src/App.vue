@@ -2,7 +2,7 @@
   <div>
     <bodyHeader></bodyHeader>
     <bodyBackground></bodyBackground>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 

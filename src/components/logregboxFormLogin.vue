@@ -8,8 +8,8 @@
                             <i class='bx bxs-user'></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="text" required v-model="$store.state.userName">
-                        <label>UserName</label>
+                        <input type="text" required >
+                        <label>ID Number</label>
                     </div>
 
                     <div class="input-box">
@@ -17,18 +17,12 @@
                             <i class='bx bxs-lock-alt'></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="password" required v-model="$store.state.userPassword">
+                        <input type="password" required>
                         <label>Password</label>
                     </div>
 
-                    <div class="remember-forget">
-                        <label>
-                            <input type="checkbox">Remember me
-                        </label>
-                        <a href="#">Forget password?</a>
-                    </div>
 
-                    <button type="submit" class="btn" @click.prevent="sendAxios">
+                    <button type="submit" class="btn" >
                         Sign In
                     </button>
                 </form>
@@ -122,27 +116,7 @@ export default {
     font-size: 19px;
 }
 
-.form-box .remember-forget {
-    font-size: 14.5px;
-    font-weight: 500;
-    margin: -15px 0 15px;
-    display: flex;
-    justify-content: space-between;
-}
 
-.remember-forget label input {
-    accent-color: #e4e4e4;
-    margin-right: 3px;
-}
-
-.remember-forget a {
-    color: #e4e4e4;
-    text-decoration: none;
-}
-
-.remember-forget a:hover {
-    text-decoration: underline;
-}
 
 .btn {
     width: 100%;

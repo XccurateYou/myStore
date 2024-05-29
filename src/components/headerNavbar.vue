@@ -1,8 +1,9 @@
 <template>
   <nav class="navbar">
-    <a href="">Customer</a>
-    <a href="">Forward</a>
-    <a href="">Manager</a>
+    <router-link to="/customerLayout"><div>Customer</div></router-link>
+    <div>HotelForward</div>
+    <div>HotelManager</div>
+    <div>AcAdministrator</div>
   </nav>
 </template>
 
@@ -17,22 +18,12 @@ export default {
 </script>
 
 <style scoped>
-.mulchoose:hover .bx-caret-down{
-  opacity: 0;
-}
 
-.dropdown-content:hover .bx-caret-down{
-  opacity: 0;
-}
+div {
+  display: inline-block;
+} 
 
-.bx-caret-down {
-  opacity: 1;
-  font-size: 16px;
-  color: #e4e4e4;
-  transition: .5s;
-}
-
-.navbar a {
+.navbar div {
     position: relative;
     font-size: 16px;
     color: #e4e4e4;
@@ -41,7 +32,7 @@ export default {
     margin-right: 30px;
 }
 
-.navbar a::after {
+.navbar div::after {
     content: '';
     position: absolute;
     bottom: -6px;
@@ -56,7 +47,7 @@ export default {
 }
 
 
-.navbar a:hover::after {
+.navbar div:hover::after {
     transform: translateY(0);
     opacity: 1;
 }

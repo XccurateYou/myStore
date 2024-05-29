@@ -1,5 +1,5 @@
 <template>
-  <div class="logreg-box" :class="{'active':$store.state.isActive}">
+  <div class="logreg-box">
     <logregbox-form-login/>
   </div>
 </template>
