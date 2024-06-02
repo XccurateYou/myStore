@@ -1,9 +1,10 @@
 <template>
   <nav class="navbar">
     <router-link to="/customerLayout"><div>Customer</div></router-link>
-    <div>HotelForward</div>
+    <router-link to="/hotelForward"><div>HotelForward</div></router-link>
+    <router-link to="/acMonitor"><div>AcAdministrator</div></router-link>
     <div>HotelManager</div>
-    <div>AcAdministrator</div>
+    
   </nav>
 </template>
 

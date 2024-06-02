@@ -1,45 +1,67 @@
-<template>
-              <div class="form-box login">
+<template >
+    <div class='container2'>
+        <div class="form-box login">
                 <form action="">
-                    <h2>Sign In</h2>
+                    <h2>Check Out</h2>
 
                     <div class="input-box">
                         <span class="icon">
-                            <i class='bx bxs-user'></i>
+                            <i class='bx bx-id-card'></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="text" required v-model="$store.state.IDnumber">
-                        <label>ID Number</label>
+                        <input type="text" required v-model="$store.state.custoemrID">
+                        <label>CustomerID</label>
                     </div>
 
                     <div class="input-box">
                         <span class="icon">
-                            <i class='bx bxs-lock-alt'></i>
+                            <i class='bx bx-home' ></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="password" required v-model="$store.state.password">
-                        <label>Password</label>
+                        <input type="password" required v-model="$store.state.roomID">
+                        <label>RoomID</label>
                     </div>
-                    <button type="submit" class="btn" >
-                        Sign In
+
+                    <button type="submit" class="btn" @click.prevent="sendAxiosCheckOut">
+                        Check Out
                     </button>
+
                 </form>
             </div>
+    </div>
 </template>
-
 <script>
 export default {
-    name:"logregboxFormLogin",
+    name:'userOut',
     methods:{
-        sendAxiosLogin(){
-            this.$store.dispatch('sendAxiosLogin')
+        sendAxiosCheckOut(){
+            this.$store.dispatch('sendAxiosCheckOut')
         }
     }
 }
 </script>
-
 <style scoped>
-.form-box {
+    .right .container2{
+        width:100%;
+        height:546px;
+        transform:translateY(-100%);
+
+        transition:.5s ease;
+        opacity:1;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .right.active .container2{
+        width:100%;
+        height:546px;
+        transform:translateY(100%);
+        opacity:0;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    } 
+
+    .form-box {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -47,24 +69,14 @@ export default {
     width: 100%;
     height: 100%;
     background: transparent;
-    backdrop-filter: blur(14px);
+
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     color: #e4e4e4;
 }
 
-.form-box.login {
-    transform: translateX(0);
-    opacity: 1;
-    transition: transform 1s ease;
-    transition-delay: 0s;
-}
 
-.logreg-box.active .form-box.login {
-    transform: translateX(100%);
-    opacity: 0;
-    transition-delay: 0s;
-}
+
 
 .form-box h2 {
     font-size: 32px;
@@ -116,8 +128,6 @@ export default {
     font-size: 19px;
 }
 
-
-
 .btn {
     width: 100%;
     height: 45px;
@@ -132,13 +142,6 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
 }
 
-.login-register p a {
-    color: #e4e4e4;
-    font-weight: 600;
-    text-decoration: none;
-}
 
-.login-register p a:hover {
-    text-decoration: underline;
-}
+
 </style>

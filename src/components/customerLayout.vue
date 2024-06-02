@@ -25,7 +25,7 @@
                 <div class="status"><i class='bx bx-radio-circle-marked'></i> 正在送风</div>
             </div>
             <div class="control">
-                <div class="power"><i class='bx bxs-toggle-right' ></i></div>
+                <div class="power"><div class="outer" @click="powerState()"    :class="{'active':$store.state.powerActive}"><div class="round"></div></div></div>
                 <div class="speedcontrol"><i class='bx bxl-tailwind-css'></i>风速</div>
             </div>
             <div class="tempcontrol">
@@ -38,7 +38,12 @@
 
 <script>
 export default {
-    name:"customerLayout"
+    name:"customerLayout",
+    methods:{
+        powerState(){
+            this.$store.dispatch('powerState')
+        }
+    }
 }
 </script>
 
@@ -56,17 +61,19 @@ export default {
     background-position: center;
     border-radius: 10px;
     margin-top: 20px;
-    background:rgb(11,42,82);
-    border: solid 1px rgba(94, 137, 185, 0.589);
+    background:url('background.jpg');
+    border: solid 2px rgba(94, 137, 185, 0.589);
 }
 
     .left {
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 35%;
-        height: 550px;
+        height: 546px;
         border-right: solid 1px rgba(94, 137, 185, 0.589);
+        backdrop-filter: blur(14px);
     }
 
     .room{
@@ -108,10 +115,12 @@ export default {
         color: #e4e4e4;
     }
     .right{
+        border-radius: 10px;
         width: 65%;
         color: #e4e4e4;
         display: flex;
         flex-wrap: wrap;
+        backdrop-filter: blur(14px);
     }
 
     .config {
@@ -155,10 +164,8 @@ export default {
     }
 
     .power{
+        position: relative;
         width: 35%;
-        text-align: center;
-        line-height: 200px;
-        font-size: 128px;
         border-right:solid 1px rgba(94, 137, 185, 0.589);
         border-bottom:solid 1px rgba(94, 137, 185, 0.589);
     }
@@ -193,5 +200,39 @@ export default {
 
     .bx-radio-circle-marked{
         color: #97afbba1;
+    }
+
+    .outer{
+        position: absolute;
+        margin:auto;
+        top:50%;
+        left: 50%;
+        width: 50%;
+        height: 80px;
+        transform: translate(-50%,-50%);
+        background-color:transparent;
+        transition: .5s;
+        border-radius:40px;
+        border: 2px solid white;
+    }
+
+    .round{
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-120%,-50%);
+        height: 60px;
+        width: 60px;
+        border-radius: 30px;
+        background-color:white;
+        transition: .5s;
+    }
+
+    .outer.active {
+        background-color: rgb(67, 165, 67);
+    }
+
+    .outer.active .round {
+        transform: translate(22%,-50%);
     }
 </style>

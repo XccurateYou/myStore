@@ -1,15 +1,13 @@
 <template>
     <div class="content">
-        <h2 class="logo"><i class='bx bxl-postgresql'></i>
-            E-Business DataBase</h2>
+        <h2 class="logo"><i class='bx bxs-hotel'></i>
+            Botel Hotel</h2>
         <div class="text-sci">
             <h2>Welcome!<br>
-                <span>To Our DataBase System.</span>
+                <span>To Our Hotel System.</span>
             </h2>
             <p>
-                This is a simple database system demo.You can login and do some easy database oprations like
-                query for detailed customers' or nations' information ,import or export data to your local computer
-                as .txt files.
+                This is a simple Hotel system demo.You can login and act as customer,acadministrator,hotelmanager and hotelforward.
             </p>
         </div>
     </div>

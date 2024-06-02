@@ -1,45 +1,66 @@
-<template>
-              <div class="form-box login">
+<template >
+    <div class='container1'>
+        <div class="form-box login">
                 <form action="">
-                    <h2>Sign In</h2>
+                    <h2>Check In</h2>
 
                     <div class="input-box">
                         <span class="icon">
-                            <i class='bx bxs-user'></i>
+                            <i class='bx bx-id-card'></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="text" required v-model="$store.state.IDnumber">
-                        <label>ID Number</label>
+                        <input type="text" required v-model="$store.state.customerID">
+                        <label>CustomerID</label>
                     </div>
 
                     <div class="input-box">
                         <span class="icon">
-                            <i class='bx bxs-lock-alt'></i>
+                            <i class='bx bx-home' ></i>
                         </span>
                         <!-- required属性表示必须要这个input框的value -->
-                        <input type="password" required v-model="$store.state.password">
-                        <label>Password</label>
+                        <input type="password" required v-model="$store.state.roomID">
+                        <label>RoomID</label>
                     </div>
-                    <button type="submit" class="btn" >
-                        Sign In
+
+                    <button type="submit" class="btn" @click.prevent="sendAxiosCheckIn">
+                        Check In
                     </button>
+
                 </form>
             </div>
+    </div>
 </template>
-
 <script>
 export default {
-    name:"logregboxFormLogin",
+    name:'userIn',
     methods:{
-        sendAxiosLogin(){
-            this.$store.dispatch('sendAxiosLogin')
+        sendAxiosCheckIn(){
+            this.$store.dispatch('sendAxiosCheckIn')
         }
     }
 }
 </script>
-
 <style scoped>
-.form-box {
+    .right .container1{
+        width:100%;
+        height:546px;
+        transform:translateY(100%);
+
+        border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+        opacity:0;
+    }
+
+    .right.active .container1{
+        width:100%;
+        height:546px;
+        transform:translateY(0);
+        transition:.5s ease;
+
+        opacity:1;
+    } 
+
+    .form-box {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -47,8 +68,8 @@ export default {
     width: 100%;
     height: 100%;
     background: transparent;
-    backdrop-filter: blur(14px);
     border-top-right-radius: 10px;
+
     border-bottom-right-radius: 10px;
     color: #e4e4e4;
 }
@@ -116,8 +137,6 @@ export default {
     font-size: 19px;
 }
 
-
-
 .btn {
     width: 100%;
     height: 45px;
@@ -141,4 +160,5 @@ export default {
 .login-register p a:hover {
     text-decoration: underline;
 }
+
 </style>
