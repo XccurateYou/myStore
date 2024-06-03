@@ -10,12 +10,15 @@ const actions = {
     userIn(context) {
         context.commit("USERIN")
     },
+
     userOut(context) {
         context.commit("USEROUT")
     },
+
     powerState(context) {
         context.commit("POWERSTATE")
     },
+
     sendAxiosLogin() {
         axios({
             method: 'POST',
@@ -37,6 +40,7 @@ const actions = {
             )
         })
     },
+
     sendAxiosCheckIn() {
         axios({
             method: 'POST',
@@ -53,6 +57,7 @@ const actions = {
             state.logintip = state.customerID
         })
     },
+
     sendAxiosConfig() {
         axios({
             method: 'POST',
@@ -70,6 +75,7 @@ const actions = {
             state.logintip = state.customerID
         })
     },
+
     sendAxiosCheckOut() {
         axios({
             method: 'POST',
@@ -99,20 +105,6 @@ const mutations = {
     },
     POWERSTATE(state) {
         state.powerActive = !state.powerActive
-        axios({
-            method: 'POST',
-            url: 'http://10.129.152.215:8080/customer/changeStatus',
-            data: {
-                isOpen: state.isOpen,
-                roomId: state.roomID,
-                cusId: state.customerID
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            console.log(JSON.stringify(response.data.msg))
-        })
     }
 }
 
@@ -126,6 +118,13 @@ const state = {
     password: '',
     IDnumber: '',
     isOpen: true,
+    targetTemp: 25,
+    curTemp: 25.00,
+    cost: 0.00,
+    speed: '中风',
+    speedList: ['低风', '中风', '高风'],
+    speedIndex: 1,
+    powerSleep: false
 }
 
 //创建store

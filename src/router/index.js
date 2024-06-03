@@ -5,6 +5,7 @@ import customerLayout from "../components/customerLayout.vue"
 import hotelForward from "../components/hotelForward.vue"
 import userIn from "../components/userIn.vue"
 import acMonitor from "@/components/acMonitor.vue"
+import hotelManager from "../components/hotelManager.vue"
 export default new VueRouter({
     routes: [
         {
@@ -33,6 +34,10 @@ export default new VueRouter({
         {
             path: '/acMonitor',
             component: acMonitor,
+        },
+        {
+            path: '/hotelManager',
+            component: hotelManager
         }
     ],
     mode: 'history'

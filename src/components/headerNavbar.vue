@@ -3,8 +3,7 @@
     <router-link to="/customerLayout"><div>Customer</div></router-link>
     <router-link to="/hotelForward"><div>HotelForward</div></router-link>
     <router-link to="/acMonitor"><div>AcAdministrator</div></router-link>
-    <div>HotelManager</div>
-    
+    <router-link to="/hotelManager"><div>HotelManager</div></router-link>
   </nav>
 </template>
 
