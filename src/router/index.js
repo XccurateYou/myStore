@@ -49,11 +49,25 @@ export default new VueRouter({
         },
         {
             path:'/sqlAnalyze',
-            component:sqlAnalyze
+            component:sqlAnalyze,
+            beforeEnter: (to, from, next) => {
+                if (store.state.permission == 1) { //判断是否需要授权
+                    next() //放行
+                } else {
+                    alert('你没有权限访问该页面') 
+                }
+            }
         },
         {
             path:'/performanceMetrics',
-            component:performanceMetrics
+            component:performanceMetrics,
+            beforeEnter: (to, from, next) => {
+                if (store.state.permission == 1) { //判断是否需要授权
+                    next() //放行
+                } else {
+                    alert('你没有权限访问该页面') 
+                }
+            }
         }
     ],
     mode: 'history'
