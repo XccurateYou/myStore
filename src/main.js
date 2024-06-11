@@ -5,6 +5,11 @@ import VueRouter from 'vue-router'
 import router from './router/index'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+// vue virtual scroller
+import "vue-virtual-scroller/dist/vue-virtual-scroller.css" // 引入它的 css
+import VueVirtualScroller from "vue-virtual-scroller" // 引入它
+Vue.use(VueVirtualScroller) // use 它
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueRouter)

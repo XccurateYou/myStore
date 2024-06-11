@@ -1,61 +1,69 @@
 <template>
-            <div class="form-box register">
-                <form>
-                    <h2>Sign Up</h2>
+    <div class="form-box register">
+        <form>
+            <h2>Sign Up</h2>
 
-                    <div class="input-box">
-                        <span class="icon">
-                            <i class='bx bxs-user'></i>
-                        </span>
-                        <!-- required属性表示必须要这个input框的value -->
-                        <input type="text" required>
-                        <label>Name</label>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="icon">
-                            <i class='bx bxs-envelope'></i>
-                        </span>
-                        <!-- required属性表示必须要这个input框的value -->
-                        <input type="email" required>
-                        <label>Email</label>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="icon">
-                            <i class='bx bxs-lock-alt'></i>
-                        </span>
-                        <!-- required属性表示必须要这个input框的value -->
-                        <input type="password" required>
-                        <label>Password</label>
-                    </div>
-
-                    <div class="remember-forget">
-                        <label>
-                            <input type="checkbox">I agree to the terms
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn">
-                        Sign Up
-                    </button>
-
-                    <div class="login-register">
-                        <p>
-                            Already have an account?
-                            <a href="#" class="login-link" @click="regsiterChangeLogin()">Sign in</a>
-                        </p>
-                    </div>
-                </form>
+            <div class="input-box">
+                <span class="icon">
+                    <i class='bx bxs-user'></i>
+                </span>
+                <!-- required属性表示必须要这个input框的value -->
+                <input type="text" required v-model="$store.state.signUpName">
+                <label>Name</label>
             </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class='bx bxs-lock-alt'></i>
+                </span>
+                <!-- required属性表示必须要这个input框的value -->
+                <input type="password" required v-model="$store.state.signUpPassword">
+                <label>Password</label>
+            </div>
+
+            <div class="remember-forget">
+                <label>
+                    <input type="checkbox">I agree to the terms
+                </label>
+            </div>
+
+            <button type="submit" class="btn" @click.prevent="signUp()">
+                Sign Up
+            </button>
+
+            <div class="login-register">
+                <p>
+                    Already have an account?
+                    <a href="#" class="login-link" @click="regsiterChangeLogin()">Sign in</a>
+                </p>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    name:'logregboxFormRegister',
-    methods:{
-        regsiterChangeLogin(){
+    name: 'logregboxFormRegister',
+    methods: {
+        regsiterChangeLogin() {
             this.$store.dispatch('change')
+        },
+        signUp() {
+            axios({
+                method: 'POST',
+                url: 'http://10.129.152.215:8080/userManagement/signUp',
+                data: {
+                    account: this.$store.state.signUpName,
+                    password: this.$store.state.signUpPassword
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': 'zxc'
+                }
+            }).then(response => {
+                alert(response.data.msg)
+            })
         }
     }
 }

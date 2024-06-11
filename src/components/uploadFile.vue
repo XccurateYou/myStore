@@ -1,36 +1,66 @@
 <template>
     <div class="container">
-        <form >
-        <input type="file" name="file" id="files" />
-        <button type="submit" @click.prevent="upload">上传文件</button>
-        </form>
-        <div class="tosee"></div>
+        <h2>文件上传</h2>
+        <input type="file" @change="onFileChange" />
+        <button @click="uploadFile">上传</button>
+        <div v-if="showProgress">
+            <progress :value="progressPercentage" max="100"></progress>
+            <p>上传进度: {{ progressPercentage }}%</p>
+        </div>
+        <p v-if="uploadStatus">{{ uploadStatus }}</p>
     </div>
 </template>
 <script>
 import axios from 'axios';
 
 export default {
-    name:'uplaodFile',
-    methods:{
-        upload(){
-            let  forms = new FormData();
-            let filesInput = document.getElementById('files');
-            let file = filesInput.files[0]
-            forms.append('file',file)
-            console.log(forms)
-            const options = {
-            method:'POST',
-            headers:{
-                'content-type':'multipart/form-data',
-                'token':'zxc'
-            },
-            data:forms,
-            url:"http://10.129.152.215:8080/dataManagement/import?tableName=customer"
+    name: 'uplaodFile',
+    data() {
+        return {
+            selectedFile: null,
+            progressPercentage: 0,
+            showProgress: false,
+            uploadStatus: '',
+        };
+    },
+    methods: {
+        onFileChange(e) {
+            this.selectedFile = e.target.files[0];
+            this.uploadStatus = '';
+        },
+        uploadFile() {
+            if (!this.selectedFile) {
+                this.uploadStatus = '请先选择一个文件';
+                return;
             }
-            axios(options)
-        }
-    }
+
+            const formData = new FormData();
+            formData.append('file', this.selectedFile);
+
+            this.showProgress = true;
+
+            axios.post('http://10.129.152.215:8080/dataManagement/import?tableName=customer', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'token': 'zxc'
+                },
+                onUploadProgress: (progressEvent) => {
+                    this.progressPercentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                },
+            })
+                .then(response => {
+                    this.uploadStatus = '文件上传成功！';
+                    this.showProgress = false;
+                    console.log(response)
+                    // 你可以在这里处理上传后的数据  
+                })
+                .catch(error => {
+                    console.error('文件上传失败:', error);
+                    this.uploadStatus = '文件上传失败，请重试';
+                    this.showProgress = false;
+                });
+        },
+    },
 }
 
 
@@ -38,14 +68,13 @@ export default {
 
 
 </script>
-<style  scoped>
+<style scoped>
+* {
+    margin: 0;
+    padding: 0;
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
+.container {
     overflow: auto;
     color: #e4e4e4;
     /* 相对于body元素的absolute属性 */
@@ -53,40 +82,60 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items:center;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 75%;
     height: 550px;
-    background-color:skyblue; 
+
     background-size: cover;
     background-position: center;
     border-radius: 20px;
     /* margin-top: 20px; */
-    background-color:rgb(36,67,132)
-    }
+}
 
-    form {
-        margin-top: 10px;
-        align-self: self-start;
-    }
+/* 标题样式 */
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    input {
-        background-color: rgb(211,227,253);
-        margin-right: 10px;
-        color: black;
-    }
+/* 文件输入框样式 */
+.container input[type="file"] {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
 
-    .tosee{
-        width: 100%;
-        height: 500px;
-        background-color: rgb(211,227,253);
-        margin: 0 6px 6px;
-        border-radius: 20px;
-    }
+/* 上传按钮样式 */
+.container button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    input#file-upload-button {
-        margin-right: 10px;
-    }
+/* 进度条样式 */
+.container progress {
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    height: 20px;
+}
+
+/* 进度文本样式 */
+.container p {
+    text-align: center;
+    margin: 5px 0;
+}
 </style>

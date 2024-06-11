@@ -16,13 +16,15 @@
 </template>
 
 <script>
-    export default {
-        name:'homePage'
-    }
+
+export default {
+    name: 'homePage',
+
+}
 </script>
 
 <style scoped>
-    .container {
+.container {
     /* 相对于body元素的absolute属性 */
     position: absolute;
     top: 50%;
@@ -47,7 +49,7 @@
     padding: 80px;
     color: #24697e;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }

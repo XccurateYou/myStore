@@ -49,28 +49,6 @@ const actions = {
 
 
 
-    },
-
-    sendlog() {
-        axios({
-            method: 'POST',
-            url: 'http://10.129.152.215:8080/userManagement/logIn',
-            data: {
-                account: state.userName,
-                password: state.userPassword
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            console.log(JSON.stringify(response.data.msg))
-            state.logintip = state.userName
-            router.push(
-                {
-                    path: '/'
-                }
-            )
-        })
     }
 }
 
@@ -80,6 +58,7 @@ const mutations = {
         state.isActive = !state.isActive
     }
 }
+
 
 //存储数据
 const state = {
@@ -95,15 +74,26 @@ const state = {
     logging_collector: 'on',
     customer_list: [],
     nation_list: [],
-    customer_select: '',
-    nation_select: '',
-    page_number: 1,
-    size: 10,
+    display_list:[],
+    customer_select: 'null',
+    nation_select: 'null',
+    userPermission: '',
+    currentPage: 1,  
+    searchQuery: ''  ,
+    averageLatency:'',
+    totalRequestCount:'',
+    concurrentRequests:'',
+    totalProcessingTime:'',
+    status:'',
+    signUpName:'',
+    signUpPassword:'',
+    permission:0,
 }
+
 
 //创建store
 export default new Vuex.Store({
     actions,
     mutations,
-    state
+    state,
 })

@@ -1,56 +1,89 @@
 <template>
-              <div class="form-box login">
-                <form action="">
-                    <h2>Sign In</h2>
+    <div class="form-box login">
+        <form action="">
+            <h2>Sign In</h2>
 
-                    <div class="input-box">
-                        <span class="icon">
-                            <i class='bx bxs-user'></i>
-                        </span>
-                        <!-- required属性表示必须要这个input框的value -->
-                        <input type="text" required v-model="$store.state.userName">
-                        <label>UserName</label>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="icon">
-                            <i class='bx bxs-lock-alt'></i>
-                        </span>
-                        <!-- required属性表示必须要这个input框的value -->
-                        <input type="password" required v-model="$store.state.userPassword">
-                        <label>Password</label>
-                    </div>
-
-                    <div class="remember-forget">
-                        <label>
-                            <input type="checkbox">Remember me
-                        </label>
-                        <a href="#">Forget password?</a>
-                    </div>
-
-                    <button type="submit" class="btn" @click.prevent="sendAxios">
-                        Sign In
-                    </button>
-
-                    <div class="login-register">
-                        <p>
-                            Don't have an account?
-                            <a href="#" class="register-link" @click="changeStyleLogin()">Sign up</a>
-                        </p>
-                    </div>
-                </form>
+            <div class="input-box">
+                <span class="icon">
+                    <i class='bx bxs-user'></i>
+                </span>
+                <!-- required属性表示必须要这个input框的value -->
+                <input type="text" required v-model="$store.state.userName">
+                <label>UserName</label>
             </div>
+
+            <div class="input-box">
+                <span class="icon">
+                    <i class='bx bxs-lock-alt'></i>
+                </span>
+                <!-- required属性表示必须要这个input框的value -->
+                <input type="password" required v-model="$store.state.userPassword">
+                <label>Password</label>
+            </div>
+
+            <div class="remember-forget">
+                <label>
+                    <input type="checkbox">Remember me
+                </label>
+                <a href="#">Forget password?</a>
+            </div>
+
+            <button type="submit" class="btn" @click.prevent="sendAxios">
+                Sign In
+            </button>
+
+            <div class="login-register">
+                <p>
+                    Don't have an account?
+                    <a href="#" class="register-link" @click="changeStyleLogin()">Sign up</a>
+                </p>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script>
+import axios from 'axios'
+import router from '@/router'
 export default {
-    name:"logregboxFormLogin",
-    methods:{
-        changeStyleLogin(){
+    name: "logregboxFormLogin",
+    methods: {
+        changeStyleLogin() {
             this.$store.dispatch('change')
         },
-        sendAxios(){
-            this.$store.dispatch('sendlog')
+        sendAxios() {
+            axios({
+                method: 'POST',
+                url: 'http://10.129.152.215:8080/userManagement/logIn',
+                data: {
+                    account: this.$store.state.userName,
+                    password: this.$store.state.userPassword
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                console.log(JSON.stringify(response.data.msg))
+                this.$store.state.permission = response.data.data.permission
+                console.log(response.data.data.permission)
+                if (response.data.msg == '登录成功') {
+                    this.$nextTick(() => {
+                        this.change()
+                    })
+                    alert(response.data.msg)
+
+                } else {
+                    alert(response.data.msg)
+                }
+            })
+        },
+        change() {
+            this.$store.state.logintip = this.$store.state.userName
+            router.push(
+                {
+                    path: '/'
+                }
+            )
         }
     }
 }
