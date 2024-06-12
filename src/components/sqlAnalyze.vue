@@ -61,27 +61,29 @@ export default {
                     this.display_list.push(item)
                 })
                 this.display_list.forEach(ele => ele.name = ele.name.trim())
-                // 移除字符串两端的数组括号  
-                const queryPlanString = response.data.data.execution;
-                const trimmedString = queryPlanString.slice(1, -1);
+                response.data.data.execution.forEach(item => {
+                    // 移除字符串两端的数组括号  
+                    const queryPlanString = item;
+                    const trimmedString = queryPlanString.slice(1, -1);
 
-                // 使用正则表达式匹配每个QUERY PLAN对象  
-                const regex = /{"QUERY PLAN":"([^"]+)"}/g;
-                let matches = trimmedString.match(regex);
+                    // 使用正则表达式匹配每个QUERY PLAN对象  
+                    const regex = /{"QUERY PLAN":"([^"]+)"}/g;
+                    let matches = trimmedString.match(regex);
 
-                // 初始化一个空数组来存储解析后的JSON对象  
+                    // 初始化一个空数组来存储解析后的JSON对象  
 
-                let idCount = 0
-                // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
-                if (matches) {
-                    matches.forEach(match => {
-                        // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
-                        const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
-                        // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
-                        this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
-                        idCount++
-                    });
-                }
+                    let idCount = 0
+                    // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
+                    if (matches) {
+                        matches.forEach(match => {
+                            // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
+                            const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
+                            // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
+                            this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
+                            idCount++
+                        });
+                    }
+                })
                 this.ifShow = true;
                 if (this.display_list.length) {
                     this.ifShowCharts = true
@@ -109,29 +111,31 @@ export default {
                     comment2: 'request'
                 }
             }).then(response => {
-
+                this.ifShowCharts = false
                 this.analyze_list = []
-                // 移除字符串两端的数组括号  
-                const queryPlanString = response.data.data.data.execution;
-                const trimmedString = queryPlanString.slice(1, -1);
+                response.data.data.data.execution.forEach(item => {
+                    // 移除字符串两端的数组括号  
+                    const queryPlanString = item;
+                    const trimmedString = queryPlanString.slice(1, -1);
 
-                // 使用正则表达式匹配每个QUERY PLAN对象  
-                const regex = /{"QUERY PLAN":"([^"]+)"}/g;
-                let matches = trimmedString.match(regex);
+                    // 使用正则表达式匹配每个QUERY PLAN对象  
+                    const regex = /{"QUERY PLAN":"([^"]+)"}/g;
+                    let matches = trimmedString.match(regex);
 
-                // 初始化一个空数组来存储解析后的JSON对象  
+                    // 初始化一个空数组来存储解析后的JSON对象  
 
-                let idCount = 0
-                // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
-                if (matches) {
-                    matches.forEach(match => {
-                        // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
-                        const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
-                        // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
-                        this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
-                        idCount++
-                    });
-                }
+                    let idCount = 0
+                    // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
+                    if (matches) {
+                        matches.forEach(match => {
+                            // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
+                            const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
+                            // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
+                            this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
+                            idCount++
+                        });
+                    }
+                })
                 this.ifShow = true;
             })
         },
@@ -140,78 +144,80 @@ export default {
         getAnalyze_2() {
             axios({
                 method: 'POST',
-                url: 'http://10.129.152.215:8080/tpcH/selectCusDistribution',
+                url: 'http://10.129.152.215:8080/benchmark/run',
                 headers: {
                     'Content-Type': 'application/json',
                     'token': 'zxc'
                 },
                 params: {
-                    comment1: 'special',
-                    comment2: 'request'
+                    transactionType: 'order'
                 }
             }).then(response => {
-
+                this.ifShowCharts = false
                 this.analyze_list = []
-                // 移除字符串两端的数组括号  
-                const queryPlanString = response.data.data.data.execution;
-                const trimmedString = queryPlanString.slice(1, -1);
+                response.data.data.execution.forEach(item => {
+                    // 移除字符串两端的数组括号  
+                    const queryPlanString = item;
+                    const trimmedString = queryPlanString.slice(1, -1);
 
-                // 使用正则表达式匹配每个QUERY PLAN对象  
-                const regex = /{"QUERY PLAN":"([^"]+)"}/g;
-                let matches = trimmedString.match(regex);
+                    // 使用正则表达式匹配每个QUERY PLAN对象  
+                    const regex = /{"QUERY PLAN":"([^"]+)"}/g;
+                    let matches = trimmedString.match(regex);
 
-                // 初始化一个空数组来存储解析后的JSON对象  
+                    // 初始化一个空数组来存储解析后的JSON对象  
+                    let idCount = 0
 
-                let idCount = 0
-                // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
-                if (matches) {
-                    matches.forEach(match => {
-                        // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
-                        const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
-                        // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
-                        this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
-                        idCount++
-                    });
-                }
+                    // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
+                    if (matches) {
+                        matches.forEach(match => {
+                            // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
+                            const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
+                            // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
+                            this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
+                            idCount++
+                        });
+                    }
+                })
                 this.ifShow = true;
             })
         },
         getAnalyze_3() {
             axios({
                 method: 'POST',
-                url: 'http://10.129.152.215:8080/tpcH/selectCusDistribution',
+                url: 'http://10.129.152.215:8080/benchmark/run?',
                 headers: {
                     'Content-Type': 'application/json',
                     'token': 'zxc'
                 },
                 params: {
-                    comment1: 'special',
-                    comment2: 'request'
+                    transactionType: 'payment'
                 }
             }).then(response => {
-
+                this.ifShowCharts = false
                 this.analyze_list = []
-                // 移除字符串两端的数组括号  
-                const queryPlanString = response.data.data.data.execution;
-                const trimmedString = queryPlanString.slice(1, -1);
+                response.data.data.execution.forEach(item => {
+                    // 移除字符串两端的数组括号  
+                    const queryPlanString = item;
+                    const trimmedString = queryPlanString.slice(1, -1);
 
-                // 使用正则表达式匹配每个QUERY PLAN对象  
-                const regex = /{"QUERY PLAN":"([^"]+)"}/g;
-                let matches = trimmedString.match(regex);
+                    // 使用正则表达式匹配每个QUERY PLAN对象  
+                    const regex = /{"QUERY PLAN":"([^"]+)"}/g;
+                    let matches = trimmedString.match(regex);
 
-                // 初始化一个空数组来存储解析后的JSON对象  
+                    // 初始化一个空数组来存储解析后的JSON对象  
 
-                let idCount = 0
-                // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
-                if (matches) {
-                    matches.forEach(match => {
-                        // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
-                        const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
-                        // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
-                        this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
-                        idCount++
-                    });
-                }
+                    let idCount = 0
+                    // 遍历匹配项，并解析每个字符串为JSON对象（虽然这里实际上并没有JSON解析，因为内容是字符串字面量）  
+                    if (matches) {
+                        matches.forEach(match => {
+                            // 假设每个match都是完整的{"QUERY PLAN": "..."}形式，我们可以直接将其中的查询计划内容提取出来  
+                            const planContent = match.replace(/^{"QUERY PLAN":"|"$/g, ''); // 移除前后的JSON结构部分  
+                            // 这里我们不进行真正的JSON解析，因为planContent已经是查询计划的纯文本内容  
+                            this.analyze_list.push({ QUERY_PLAN: planContent, id: idCount }); // 使用QUERY_PLAN作为键名，以避免与JSON.parse混淆  
+                            idCount++
+                        });
+                    }
+                })
                 this.ifShow = true;
             })
         },

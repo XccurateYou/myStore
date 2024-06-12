@@ -1,9 +1,9 @@
-<template >
+<template>
     <div class="form container">
         <form action="">
             <div class="set">
                 <label>Shared_Buffer set to:</label>
-                <input  type="number" v-model="$store.state.ini_shared_buffers" required >
+                <input type="number" v-model="$store.state.ini_shared_buffers" required>
             </div>
 
             <div class="set">
@@ -13,7 +13,7 @@
 
             <div class="set">
                 <label for="timeout">TimeOut set to:</label>
-                <input   v-model="$store.state.ini_logging_collector" required>                
+                <input v-model="$store.state.ini_logging_collector" required>
             </div>
 
             <div class="set icon">
@@ -25,31 +25,35 @@
 
 <script>
 import axios from 'axios';
-
+import router from '@/router';
 export default {
-    name:'setSetting',
-    methods:{
+    name: 'setSetting',
+    methods: {
 
-        changeSetitng(){
+        changeSetitng() {
             axios({
-                method:'POST',
-                url:'http://10.129.152.215:8080/systemManagement/updateConfig',
-                params:{
-                    shared_buffers:this.$store.state.ini_shared_buffers,
-                    max_connections:this.$store.state.ini_max_connections,
-                    logging_collector:this.$store.state.ini_logging_collector,
+                method: 'POST',
+                url: 'http://10.129.152.215:8080/systemManagement/updateConfig',
+                params: {
+                    shared_buffers: this.$store.state.ini_shared_buffers,
+                    max_connections: this.$store.state.ini_max_connections,
+                    logging_collector: this.$store.state.ini_logging_collector,
                 },
                 headers: {
-                'Content-Type': 'application/json',
-                'token': 'zxc'
+                    'Content-Type': 'application/json',
+                    'token': 'zxc'
                 }
             }).then(response => {
                 alert(response.data.msg)
-                this.$store.state.max_connections=this.$store.state.ini_max_connections;
-                this.$store.state.shared_buffers=this.$store.state.ini_shared_buffers;
-                this.$store.state.logging_collector=this.$store.state.ini_logging_collector
-                }
-                )
+                this.$store.state.max_connections = this.$store.state.ini_max_connections;
+                this.$store.state.shared_buffers = this.$store.state.ini_shared_buffers;
+                this.$store.state.logging_collector = this.$store.state.ini_logging_collector;
+                router.push({
+                    path: '/databaseSetting'
+                })
+            }
+
+            )
         },
 
     }
@@ -58,85 +62,87 @@ export default {
 </script>
 
 <style scoped>
-    .container {
+.container {
     /* 相对于body元素的absolute属性 */
     position: absolute;
     justify-content: space-around;
-    align-items:center;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 75%;
     height: 550px;
-    background-color:skyblue; 
+    background-color: skyblue;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
     margin-top: 20px;
     background: url('setting.jpg') no-repeat;
-    }
+}
 
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
 
-    .set {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 45%;
-        height: 30%;
-        border-radius: 20px;
-        background-color: transparent;
-        backdrop-filter: blur(14px);
-    }
+.set {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 30%;
+    border-radius: 20px;
+    background-color: transparent;
+    backdrop-filter: blur(14px);
+}
 
-    .set.icon {
-        background-color: transparent;
-        backdrop-filter: blur(0px);
-        
-    }
-    .set.icon .bx{
-        color: #B6DBF2;
-        font-size: 64px;
-        transition: .5s;
-    }
+.set.icon {
+    background-color: transparent;
+    backdrop-filter: blur(0px);
 
-    .set.icon .bx:hover {
-        cursor: pointer;
-        font-size: 96px;
-    }
+}
 
-    .set label {
-        height: 48px;
-        border-radius: 4px;
-        background-color: #30588C;
-        width: 48%;
-        color:#B6DBF2;
-        font-size:24px;
-        line-height: 48px;
-        text-align: center;
-    }
+.set.icon .bx {
+    color: #B6DBF2;
+    font-size: 64px;
+    transition: .5s;
+}
 
-    .set input {
-        width: 55%;
-        height: 48px;
-        border: none;
-        outline: none;
-        border-radius: 12px;
-        font-size: 24px;
-        text-align: center;
-        background-color: #acb4bb91;
-        color:#B6DBF2 ;
-    }
+.set.icon .bx:hover {
+    cursor: pointer;
+    font-size: 96px;
+}
 
-    input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-        color:  #c8dce9;
-    }
+.set label {
+    height: 48px;
+    border-radius: 4px;
+    background-color: #30588C;
+    width: 48%;
+    color: #B6DBF2;
+    font-size: 24px;
+    line-height: 48px;
+    text-align: center;
+}
+
+.set input {
+    width: 55%;
+    height: 48px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    font-size: 24px;
+    text-align: center;
+    background-color: #acb4bb91;
+    color: #B6DBF2;
+}
+
+input::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #c8dce9;
+}
 </style>

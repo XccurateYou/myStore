@@ -73,18 +73,33 @@ export default {
         })
     },
     getPerformance() {
-      axios({
+      const request3 = axios({
         method: 'GET',
         url: 'http://10.129.152.215:8080/tpcH/performanceMetrics',
         headers: {
           'Content-Type': 'application/json',
           'token': 'zxc'
-        },
-      }).then(response => {
-        this.$store.state.averageLatency = response.data.data.averageLatency
-        this.$store.state.totalRequestCount = response.data.data.totalRequestCount
-        this.$store.state.concurrentRequests = response.data.data.concurrentRequests
-        this.$store.state.totalProcessingTime = response.data.data.totalProcessingTime
+        }
+      })
+
+      const request4 = axios({
+        method: 'GET',
+        url: 'http://10.129.152.215:8080/benchmark/performanceMetrics',
+        headers: {
+          'Content-Type': 'application/json',
+          'token': 'zxc'
+        }
+      })
+
+      axios.all([request3, request4]).then(responses => {
+        this.$store.state.averageLatency = responses[0].data.data.averageLatency
+        this.$store.state.totalRequestCount = responses[0].data.data.totalRequestCount
+        this.$store.state.concurrentRequests = responses[0].data.data.concurrentRequests
+        this.$store.state.totalProcessingTime = responses[0].data.data.totalProcessingTime
+        this.$store.state.averageLatency_c = responses[1].data.data.averageLatency
+        this.$store.state.totalRequestCount_c = responses[1].data.data.totalRequestCount
+        this.$store.state.concurrentRequests_c = responses[1].data.data.concurrentRequests
+        this.$store.state.totalProcessingTime_c = responses[1].data.data.totalProcessingTime
       })
     },
   }

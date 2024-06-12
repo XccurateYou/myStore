@@ -63,17 +63,17 @@ export default {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
-                console.log(JSON.stringify(response.data.msg))
-                this.$store.state.permission = response.data.data.permission
-                console.log(response.data.data.permission)
-                if (response.data.msg == '登录成功') {
-                    this.$nextTick(() => {
-                        this.change()
-                    })
-                    alert(response.data.msg)
+                if (response.data.data) {
+                    this.$store.state.permission = response.data.data.permission
+                    if (response.data.msg == '登录成功') {
+                        this.$nextTick(() => {
+                            this.change()
+                        })
+                        alert(response.data.msg)
 
-                } else {
-                    alert(response.data.msg)
+                    } else {
+                        alert(response.data.msg)
+                    }
                 }
             })
         },
